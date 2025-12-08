@@ -4,9 +4,5 @@ public enum StatusModeracao {
     PENDENTE,
     APROVADO,
     REJEITADO,
-    REVISADO,
-    CRIOU,
-    EDITOU,
-    APROVOU,
-    REJEITOU
+    REVISADO
 }

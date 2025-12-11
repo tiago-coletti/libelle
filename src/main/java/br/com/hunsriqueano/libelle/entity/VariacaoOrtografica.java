@@ -24,6 +24,9 @@ public class VariacaoOrtografica {
     @Column(name = "is_principal", nullable = false)
     private Boolean isPrincipal = false;
 
+    @Column(name = "codigo_fonetico")
+    private String codigoFonetico;
+
     public Integer getId() {
         return id;
     }
@@ -62,5 +65,13 @@ public class VariacaoOrtografica {
 
     public void setIsPrincipal(Boolean isPrincipal) {
         this.isPrincipal = isPrincipal;
+    }
+
+    public String getCodigoFonetico() {
+        return codigoFonetico;
+    }
+
+    public void setCodigoFonetico(String codigoFonetico) {
+        this.codigoFonetico = codigoFonetico;
     }
 }

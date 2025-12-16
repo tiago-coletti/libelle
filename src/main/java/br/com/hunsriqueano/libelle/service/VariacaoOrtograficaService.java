@@ -36,8 +36,8 @@ public class VariacaoOrtograficaService {
     }
 
     public VariacaoOrtografica salvar(VariacaoOrtografica variacao) {
-        if (variacao.getTexto() != null && !variacao.getTexto().isEmpty()) {
-            String codigo = algoritmoFonetico.encode(variacao.getTexto());
+        if (variacao.getGrafiaAlternativa() != null && !variacao.getGrafiaAlternativa().isEmpty()) {
+            String codigo = algoritmoFonetico.encode(variacao.getGrafiaAlternativa());
             variacao.setCodigoFonetico(codigo);
         }
         return repository.save(variacao);

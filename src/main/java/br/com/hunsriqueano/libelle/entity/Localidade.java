@@ -2,6 +2,8 @@ package br.com.hunsriqueano.libelle.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "localidade")
 public class Localidade {
@@ -17,10 +19,10 @@ public class Localidade {
     private String estado;
 
     @Column(name = "latitude", precision = 10, scale = 8)
-    private String latitude;
+    private BigDecimal latitude;
 
     @Column(name = "longitude", precision = 11, scale = 8)
-    private String longitude;
+    private BigDecimal longitude;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status_aprovacao", nullable = false)
@@ -50,19 +52,19 @@ public class Localidade {
         this.estado = estado;
     }
 
-    public String getLatitude() {
+    public BigDecimal getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(BigDecimal latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public BigDecimal getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(BigDecimal longitude) {
         this.longitude = longitude;
     }
 

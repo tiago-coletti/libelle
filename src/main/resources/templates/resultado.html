@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title th:text="${palavraPrincipal} + ' - Definição'">Definição - Projeto Libelle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/dicionario.css}">
+    <link rel="shortcut icon" th:href="@{/img/favicon.png}" type="image/x-icon">
+</head>
+<body>
+<header class="topbar">
+    <div class="container flex-between">
+        <div class="anim-wrapper delay-1">
+            <img th:src="@{/img/LOGO BRANCA.png}" class="logo" alt="Logo do Projeto Libelle">
+        </div>
+        <nav class="menu anim-wrapper delay-2" aria-label="Navegação principal">
+            <ul>
+                <li><a th:href="@{/}">Início</a></li>
+                <li><a th:href="@{/dicionario}">Dicionário</a></li>
+                <li><a href="#">Acervo</a></li>
+                <li><a href="#">Sobre</a></li>
+            </ul>
+        </nav>
+        <div class="anim-wrapper delay-3">
+            <a class="login-btn" href="javascript:void(0)" onclick="document.getElementById('loginOverlay').classList.add('ativo')">Login</a>
+        </div>
+    </div>
+</header>
+<main class="result-main">
+    <div class="container">
+        <form class="mini-search-box" th:action="@{/resultado}" method="get">
+            <input type="text" name="q" class="mini-input" placeholder="Pesquisar outra palavra...">
+            <button type="submit" class="mini-btn-lupa"><span class="lupa-sm"></span></button>
+        </form>
+        <article class="result-card anim-wrapper">
+            <div class="card-header-flex">
+                <div class="word-header">
+                    <h2 id="wordMain" th:text="${palavraPrincipal}">Hund</h2>
+                    <span class="pos-tag"
+                          th:text="${verbete.classeGramatical} + (${verbete.genero} != null ? ' [' + ${verbete.genero} + ']' : '')">
+                          substantivo [ m. ]
+                    </span>
+                    <div class="linguistic-note" th:if="${verbete.notasLinguisticas != null and !verbete.notasLinguisticas.isEmpty()}">
+                        <span class="note-icon">ℹ️</span>
+                        <span class="note-text" th:text="${verbete.notasLinguisticas}">
+                            Plural: Hunn
+                        </span>
+                    </div>
+                </div>
+                <div class="orthography-wrapper">
+                    <select id="orthoSelect" class="orthography-select">
+                        <option th:each="entry : ${mapaOrtografia}"
+                                th:value="${entry.key}"
+                                th:text="${#strings.capitalize(entry.key)}">
+                            Wiesemann
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="definition-box">
+                <p class="definition-text" th:text="${definicao}">
+                    Definição não disponível.
+                </p>
+                <p class="translation-row">
+                    Tradução: <span style="color: var(--preto);" th:text="${traducaoPrincipal}">cachorro</span>
+                </p>
+                <ul class="example-list">
+                    <li class="example-item" th:each="exemplo : ${exemplos}">
+                        <span class="ex-hu" th:text="${exemplo.textoOriginal}">Moin hund is brav.</span>
+                        <span class="ex-pt" th:text="${exemplo.textoTraducao}">Meu cachorro é comportado.</span>
+                    </li>
+                </ul>
+                <p style="font-size: 12px; color: #999; margin-top: 10px;">
+                    * Os exemplos são exibidos na ortografia original do autor.
+                </p>
+            </div>
+        </article>
+    </div>
+</main>
+<footer class="footer-institucional">
+    <div class="footer-container">
+        <div class="footer-col">
+            <img th:src="@{/img/LOGO BRANCA.png}" class="footer-logo" alt="Logo">
+            <p class="footer-texto">Preservando o dialeto hunsriqueano através da tecnologia e união comunitária.</p>
+        </div>
+        <div class="footer-divider"></div>
+        <div class="footer-col">
+            <h4>Navegação</h4>
+            <ul>
+                <li><a th:href="@{/}">Início</a></li>
+                <li><a th:href="@{/dicionario}">Dicionário</a></li>
+                <li><a href="#">Acervo</a></li>
+                <li><a href="#">Sobre nós</a></li>
+            </ul>
+        </div>
+        <div class="footer-divider"></div>
+        <div class="footer-col">
+            <h4>Contato</h4>
+            <ul>
+                <li><a href="mailto:contato@libelle.com">contato@libelle.com</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Facebook</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Projeto Libelle — Dialeto Hunsriqueano © 2025</p>
+    </div>
+</footer>
+<div class="login-overlay" id="loginOverlay">
+    <div class="login-modal">
+        <button class="login-close" onclick="document.getElementById('loginOverlay').classList.remove('ativo')">&times;</button>
+        <img th:src="@{/img/LOGO BRANCA.png}" style="filter: brightness(0) saturate(100%) invert(13%) sepia(85%) saturate(5427%);" alt="Logo">
+        <input type="email" placeholder="E-mail">
+        <input type="password" placeholder="Senha">
+        <button class="btn-login">Entrar</button>
+        <div class="login-opcoes">
+            <a href="#" id="recsenha">Esqueceu a senha? <b>Recuperar</b></a><br><br>
+            <a href="#" id="cadastro">Não tem conta? <b>Cadastre-se</b></a>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    const orthoData = [[${mapaOrtografia}]];
+    document.getElementById('orthoSelect').addEventListener('change', function(e) {
+        const selectedSystem = e.target.value;
+        if (orthoData && orthoData[selectedSystem]) {
+            document.getElementById('wordMain').innerText = orthoData[selectedSystem];
+        }
+    });
+</script>
+</body>
+</html>

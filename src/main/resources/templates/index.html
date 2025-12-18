@@ -4,12 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Projeto Libelle — Hunsrückisch</title>
-
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
-
     <link rel="shortcut icon" th:href="@{/img/favicon.png}" type="image/x-icon">
     <link rel="stylesheet" th:href="@{/css/style.css}">
-
     <style>
         .bandeira-hunsriqueana {
             box-shadow: 0 4px 14px rgba(0,0,0,0.12);
@@ -22,35 +19,27 @@
     </style>
 </head>
 <body>
-
 <header class="topbar">
     <div class="container flex-between">
-
         <div class="anim-wrapper delay-1">
             <img th:src="@{/img/LOGO BRANCA.png}" class="logo" alt="Logo do Projeto Libelle">
         </div>
-
         <nav class="menu anim-wrapper delay-2" aria-label="Navegação principal">
             <ul>
-                <li><a href="#" class="active">Início</a></li>
-                <li><a href="#">Tradutor</a></li>
+                <li><a th:href="@{/}">Início</a></li>
+                <li><a th:href="@{/dicionario}">Dicionário</a></li>
                 <li><a href="#">Acervo</a></li>
                 <li><a href="#">Sobre</a></li>
             </ul>
         </nav>
-
         <div class="anim-wrapper delay-3">
-            <a class="login-btn" href="#">Login</a>
+            <a class="login-btn" href="javascript:void(0)" onclick="document.getElementById('loginOverlay').classList.add('ativo')">Login</a>
         </div>
-
     </div>
 </header>
-
 <section class="hero">
     <img class="hero-video" th:src="@{/img/hero.png}" alt="">
-
     <div class="hero-overlay"></div>
-
     <div class="hero-content ">
         <h1>
             O hunsriqueano contado por quem viveu <br>
@@ -58,7 +47,6 @@
         </h1>
     </div>
 </section>
-
 <section class="faixa">
     <p>wilkhomen - wilkhomen - wilkhomen - wilkhomen - wilkhomen -
         wilkhomen - wilkhomen - wilkhomen - wilkhomen - wilkhomen -
@@ -70,11 +58,9 @@
         wilkhomen - wilkhomen - wilkhomen - wilkhomen - wilkhomen
     </p>
 </section>
-
 <section class="sobre">
-    <div class="sobre-container">
-
-        <div class="sobre-texto anim-wrapper delay-2">
+    <div class="sobre-container" id="sobreContainer">
+        <div class="sobre-texto">
             <h2 class="titulo-sobre">Sobre o Projeto Libelle</h2>
             <p>
                 O <strong style="font-family: Sora, sans-serif; color: var(--vermelho);">Projeto Libelle</strong> nasceu para preservar e difundir o dialeto hunsriqueano por meio de
@@ -86,36 +72,27 @@
                 hunsriqueano permaneça vivo para as futuras gerações.
             </p>
         </div>
-
-        <div class="sobre-img anim-wrapper delay-3">
-            <div class="sobre-img-wrapper">
-                <img th:src="@{/img/Sem nome (1080 x 720 px) (1).gif}" alt="Imagem sobre o projeto">
-            </div>
+        <div class="sobre-img-wrapper">
+            <img th:src="@{/img/Sem nome (1080 x 720 px) (1).gif}" alt="Imagem sobre o projeto">
         </div>
-
     </div>
 </section>
-
 <section class="sec-encontra">
     <div class="container">
         <h2>O que você encontra aqui?</h2>
-
         <div class="grid-encontra">
             <div class="card-encontra">
                 <img th:src="@{/img/imgencontra1.png}" alt="">
                 <p>Descubra textos, artigos e manuscritos de várias épocas.</p>
             </div>
-
             <div class="card-encontra">
                 <img th:src="@{/img/imgencontra2.png}" alt="">
                 <p>Tradução rápida PT → HU e HU → PT. Palavras, expressões e pronúncias.</p>
             </div>
-
             <div class="card-encontra">
                 <img th:src="@{/img/imgencontra3.png}" alt="">
                 <p>Curiosidades e estudos sobre história, fonética e variações regionais.</p>
             </div>
-
             <div class="card-encontra">
                 <img th:src="@{/img/imgencontra4.png}" alt="">
                 <p>Plataforma para aprendizado do Hunsriqueano de como melhorar escrita e fala.</p>
@@ -123,73 +100,57 @@
         </div>
     </div>
 </section>
-
 <section class="sec-preservar">
     <div class="curva-top"></div>
-
     <div class="container preservar-flex">
-
         <div class="preservar-img">
             <img class="bandeira-hunsriqueana" th:src="@{/img/bandeira hunsrucish.png}" alt="">
         </div>
-
         <div class="preservar-texto">
             <h2>Por que preservar o <b style="color: var(--dourado); font-family: Clab;">hunsriqueano</b>?</h2>
-
             <p>
                 O hunsriqueano chegou ao Sul do Brasil há mais de 200 anos e se consolidou como um patrimônio vivo transmitido entre famílias e comunidades. Entretanto, como muitas línguas de imigração, enfrenta o risco de desaparecimento devido à perda geracional. Preservá-lo é proteger memórias, manter tradições e fortalecer laços afetivos que atravessam o tempo.
             </p>
         </div>
-
     </div>
-
     <div class="curva-bottom"></div>
 </section>
-
 <section class="sec-numeros">
     <div class="container">
         <h2 style="font-family:Clab">Projeto em Números</h2>
-
         <div class="grid-numeros">
             <div class="num-item" style="background-color: var(--vermelho); padding: 25px; border-radius: 15px;">
                 <span style="color: var(--offwhite);" class="num">+800</span>
                 <p style="font-family: Clab;font-weight: 600; color: var(--dourado);">Palavras catalogadas</p>
             </div>
-
-            <div class="num-item"style="background-color: var(--vermelho); padding: 25px; border-radius: 15px;">
+            <div class="num-item" style="background-color: var(--vermelho); padding: 25px; border-radius: 15px;">
                 <span style="color: var(--offwhite);" class="num">+120</span>
                 <p style="font-family: Clab;font-weight: 600; color: var(--dourado);">Registros históricos</p>
             </div>
-
-            <div class="num-item"style="background-color: var(--vermelho); padding: 25px; border-radius: 15px;">
-                <span  style="color: var(--offwhite);" class="num">+40</span>
+            <div class="num-item" style="background-color: var(--vermelho); padding: 25px; border-radius: 15px;">
+                <span style="color: var(--offwhite);" class="num">+40</span>
                 <p style="font-family: Clab;font-weight: 600; color: var(--dourado);">Comunidades pesquisadas</p>
             </div>
-
-            <div class="num-item"style="background-color: var(--vermelho); padding: 25px; border-radius: 15px;">
+            <div class="num-item" style="background-color: var(--vermelho); padding: 25px; border-radius: 15px;">
                 <span style="color: var(--offwhite);" class="num">+20</span>
                 <p style="font-family: Clab;font-weight: 600; color: var(--dourado);">Colaboradores voluntários</p>
             </div>
         </div>
     </div>
 </section>
-
 <section class="sec-depoimentos">
     <div class="container">
         <h2>Falas da Comunidade</h2>
-
         <div class="depoimento">
             <p>“O hunsriqueano é a língua que me conecta com meus avós e com a história da minha família.”</p>
             <span>— Moradora de Forquetinha, 68 anos</span>
         </div>
-
         <div class="depoimento">
             <p>“Cada palavra carrega lembranças da infância, das festas e das histórias contadas na cozinha.”</p>
             <span>— Agricultor, 54 anos</span>
         </div>
     </div>
 </section>
-
 <section class="sec-contribua">
     <div class="container">
         <h2>Contribua com o Acervo</h2>
@@ -200,10 +161,58 @@
         <a href="#" class="btn-contribuir">Enviar Contribuição</a>
     </div>
 </section>
-
-<footer class="footer">
-    <p>Projeto Libelle — Dialeto Hunsriqueano</p>
+<footer class="footer-institucional">
+    <div class="footer-container">
+        <div class="footer-col">
+            <img th:src="@{/img/LOGO BRANCA.png}" class="footer-logo" alt="Logo">
+            <p class="footer-texto">Preservando o dialeto hunsriqueano através da tecnologia e união comunitária.</p>
+        </div>
+        <div class="footer-divider"></div>
+        <div class="footer-col">
+            <h4>Navegação</h4>
+            <ul>
+                <li><a th:href="@{/}">Início</a></li>
+                <li><a th:href="@{/dicionario}">Dicionário</a></li>
+                <li><a href="#">Acervo</a></li>
+                <li><a href="#">Sobre nós</a></li>
+            </ul>
+        </div>
+        <div class="footer-divider"></div>
+        <div class="footer-col">
+            <h4>Contato</h4>
+            <ul>
+                <li><a href="mailto:contato@libelle.com">contato@libelle.com</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Facebook</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Projeto Libelle — Dialeto Hunsriqueano © 2025</p>
+    </div>
 </footer>
-
+<div class="login-overlay" id="loginOverlay">
+    <div class="login-modal">
+        <button class="login-close" onclick="document.getElementById('loginOverlay').classList.remove('ativo')">&times;</button>
+        <img th:src="@{/img/LOGO BRANCA.png}" style="filter: brightness(0) saturate(100%) invert(13%) sepia(85%) saturate(5427%) border-bottom: none;" alt="Logo">
+        <input type="email" placeholder="E-mail">
+        <input type="password" placeholder="Senha">
+        <button class="btn-login">Entrar</button>
+        <div class="login-opcoes">
+            <a href="#" id="recsenha">Esqueceu a senha? <b>Recuperar</b></a><br><br>
+            <a href="#" id="cadastro">Não tem conta? <b>Cadastre-se</b></a>
+        </div>
+    </div>
+</div>
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+            }
+        });
+    }, { threshold: 0.2 });
+    observer.observe(document.getElementById('sobreContainer'));
+</script>
 </body>
 </html>

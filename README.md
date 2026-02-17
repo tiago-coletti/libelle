@@ -40,7 +40,7 @@ O projeto foi construído seguindo as melhores práticas de desenvolvimento corp
 ### Passos
 1.  Clone o repositório:
     ```bash
-    git clone (https://github.com/seu-usuario/libelle.git)
+    git clone (https://github.com/tiago-coletti/libelle.git)
     ```
 2.  Configure o banco de dados no arquivo `src/main/resources/application.properties` (se necessário).
 3.  Execute a aplicação. O **Flyway** criará as tabelas automaticamente na inicialização.

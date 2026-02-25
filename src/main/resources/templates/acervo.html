@@ -3,11 +3,20 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dicionário — Projeto Libelle</title>
+    <title>Projeto Libelle — Hunsrückisch</title>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="stylesheet" th:href="@{/css/dicionario.css}">
     <link rel="shortcut icon" th:href="@{/img/favicon.png}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/acervo.css}">
+    <style>
+        .bandeira-hunsriqueana {
+            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+            transition: 0.3s all;
+        }
+        .bandeira-hunsriqueana:hover {
+            transform: scale(1.05);
+            transition: transform .3s;
+        }
+    </style>
 </head>
 <body>
 <header class="topbar">
@@ -29,22 +38,9 @@
     </div>
 </header>
 
-<label for="idioma">Escolha o idioma:</label>
-<select id="idioma">
-    <option value="pt">Português</option>
-    <option value="de">Alemão</option>
-    <script src="js/idiomapesquisa.js"></script>
-</select>
 
-<main class="search-hero anim-wrapper">
-    <h1 class="search-title">Dicionário <span class="glow-dourado">Hunsriqueano</span></h1>
-    <form th:action="@{/resultado}" method="get" class="search-container">
-        <input type="text" name="q" class="search-input" placeholder="Ex: Bier, Dorst, Aadler, Fisch...">
-        <button type="submit" class="btn-search-lupa"><span class="lupa-icon"></span></button>
-    </form>
-    <div id="sugestoes"></div>
-    <script src="js/ajax.js"></script>
-</main>
+</body>
+
 <footer class="footer-institucional">
     <div class="footer-container">
         <div class="footer-col">
@@ -75,18 +71,3 @@
         <p>Projeto Libelle — Dialeto Hunsriqueano © 2025</p>
     </div>
 </footer>
-<div class="login-overlay" id="loginOverlay">
-    <div class="login-modal">
-        <button class="login-close" onclick="document.getElementById('loginOverlay').classList.remove('ativo')">&times;</button>
-        <img th:src="@{/img/LOGO BRANCA.png}" style="filter: brightness(0) saturate(100%) invert(13%) sepia(85%) saturate(5427%);" alt="Logo">
-        <input type="email" placeholder="E-mail">
-        <input type="password" placeholder="Senha">
-        <button class="btn-login">Entrar</button>
-        <div class="login-opcoes">
-            <a href="#" id="recsenha">Esqueceu a senha? <b>Recuperar</b></a><br><br>
-            <a href="#" id="cadastro">Não tem conta? <b>Cadastre-se</b></a>
-        </div>
-    </div>
-</div>
-</body>
-</html>

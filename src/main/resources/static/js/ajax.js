@@ -1,44 +1,49 @@
 const input = document.querySelector('input[name="q"]') || document.getElementById('busca');
-    const sugestoesDiv = document.getElementById("sugestoes");
+const sugestoesDiv = document.getElementById("sugestoes");
 
-        // Função que faz a requisição AJAX e mostra sugestões
-        if (!input) {
-            console.warn('Campo de busca não encontrado (esperado: input[name="q"] ou id="busca").');
-        } else {
-        input.addEventListener("input", async () => {
-            const termo = input.value.trim();
+function removerAcentos(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
 
-            // Se o campo estiver vazio, limpa sugestões
-            if (!termo) {
-                sugestoesDiv.innerHTML = "";
-                return;
-            }
+if (!input) {
+    console.warn('Campo de busca não encontrado.');
+} else {
+    let termoAtual = '';
 
-            try {
-                // determina idioma selecionado
-                const idiomaSelect = document.getElementById('idioma');
-                const idioma = idiomaSelect ? idiomaSelect.value : 'de';
-                // AJAX para buscar sugestões no Spring Boot
-                console.debug('Buscando sugestões — termo:', termo, 'idioma:', idioma);
-                const res = await fetch(`/api/dicionario/sugerir?termo=${encodeURIComponent(termo)}&idioma=${encodeURIComponent(idioma)}`);
-                const dados = await res.json();
-                console.debug('Sugestões recebidas:', dados);
-
-                // Monta a lista de sugestões
-                sugestoesDiv.innerHTML = dados
-                    .map(p => `<div class="sugestao">${p}</div>`)
-                    .join("");
-
-                // Permite clicar na sugestão para preencher o input
-                document.querySelectorAll(".sugestao").forEach(el => {
-                    el.addEventListener("click", () => {
-                        input.value = el.textContent;
-                        sugestoesDiv.innerHTML = "";
-                    });
-                });
-
-            } catch (err) {
-                console.error("Erro ao buscar sugestões:", err);
-            }
-        });
+    input.addEventListener("input", async () => {
+        termoAtual = input.value.trim().toLowerCase();
+        if (!termoAtual) {
+            sugestoesDiv.innerHTML = "";
+            return;
         }
+
+        try {
+            const idiomaSelect = document.getElementById('idioma');
+            const idioma = idiomaSelect ? idiomaSelect.value : 'de';
+            const res = await fetch(`/api/dicionario/sugerir?termo=${encodeURIComponent(termoAtual)}&idioma=${encodeURIComponent(idioma)}`);
+            let dados = await res.json();
+
+            // filtra palavras que começam com o termo, ignorando acentos
+            dados = dados.filter(p => 
+                removerAcentos(p.toLowerCase()).startsWith(removerAcentos(termoAtual))
+            );
+
+            sugestoesDiv.innerHTML = dados
+                .map(p => `<div class="sugestao">${p}</div>`)
+                .join("");
+
+            document.querySelectorAll(".sugestao").forEach(el => {
+                el.addEventListener("mouseenter", () => { input.value = el.textContent; });
+                el.addEventListener("mouseleave", () => { input.value = termoAtual; });
+                el.addEventListener("click", () => {
+                    input.value = el.textContent;
+                    termoAtual = el.textContent;
+                    sugestoesDiv.innerHTML = "";
+                });
+            });
+
+        } catch (err) {
+            console.error("Erro ao buscar sugestões:", err);
+        }
+    });
+}

@@ -1,0 +1,26 @@
+<header th:fragment="navbar" class="topbar">
+    <div class="container flex-between">
+        <div class="anim-wrapper delay-1">
+            <img th:src="@{/img/LOGO BRANCA.png}" 
+                 class="logo" 
+                 alt="Logo do Projeto Libelle">
+        </div>
+
+        <nav class="menu anim-wrapper delay-2" aria-label="Navegação principal">
+            <ul>
+                <li><a th:href="@{/}">Início</a></li>
+                <li><a th:href="@{/dicionario}">Dicionário</a></li>
+                <li><a th:href="@{/acervo}">Acervo</a></li>
+                <li><a th:href="@{/sobre}">Sobre</a></li>
+            </ul>
+        </nav>
+
+        <div class="anim-wrapper delay-3">
+            <a class="login-btn"
+               href="javascript:void(0)"
+               onclick="document.getElementById('loginOverlay').classList.add('ativo')">
+               Login
+            </a>
+        </div>
+    </div>
+</header>

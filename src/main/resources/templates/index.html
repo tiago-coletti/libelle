@@ -28,7 +28,7 @@
             <ul>
                 <li><a th:href="@{/}">Início</a></li>
                 <li><a th:href="@{/dicionario}">Dicionário</a></li>
-                <li><a href="#">Acervo</a></li>
+                <li><a th:href="@{/acervo}">Acervo</a></li>
                 <li><a href="#">Sobre</a></li>
             </ul>
         </nav>
@@ -158,7 +158,7 @@
             Ajude a manter o hunsriqueano vivo. Envie palavras, expressões, gravações, documentos antigos
             ou relatos da sua família e faça parte do nosso acervo comunitário.
         </p>
-        <a href="#" class="btn-contribuir">Enviar Contribuição</a>
+        <a th:href="@{/acervo}" class="btn-contribuir">Enviar Contribuição</a>
     </div>
 </section>
 <footer class="footer-institucional">
@@ -173,7 +173,7 @@
             <ul>
                 <li><a th:href="@{/}">Início</a></li>
                 <li><a th:href="@{/dicionario}">Dicionário</a></li>
-                <li><a href="#">Acervo</a></li>
+                <li><a href="@{/acervo}">Acervo</a></li>
                 <li><a href="#">Sobre nós</a></li>
             </ul>
         </div>

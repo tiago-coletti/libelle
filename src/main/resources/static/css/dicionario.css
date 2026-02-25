@@ -201,6 +201,25 @@ body {
     transform: rotate(-45deg);
 }
 
+#sugestoes {
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    background: white;
+    width: 300px;
+}
+
+.sugestao {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.sugestao:hover {
+    background-color: #f0f0f0;
+}
+
+
 .result-main {
     padding: 60px 0;
 }

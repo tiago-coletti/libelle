@@ -28,12 +28,22 @@
         </div>
     </div>
 </header>
+
+<label for="idioma">Escolha o idioma:</label>
+<select id="idioma">
+    <option value="pt">Português</option>
+    <option value="de">Alemão</option>
+    <script src="js/idiomapesquisa.js"></script>
+</select>
+
 <main class="search-hero anim-wrapper">
     <h1 class="search-title">Dicionário <span class="glow-dourado">Hunsriqueano</span></h1>
     <form th:action="@{/resultado}" method="get" class="search-container">
         <input type="text" name="q" class="search-input" placeholder="Ex: Bier, Dorst, Aadler, Fisch...">
         <button type="submit" class="btn-search-lupa"><span class="lupa-icon"></span></button>
     </form>
+    <div id="sugestoes"></div>
+    <script src="js/ajax.js"></script>
 </main>
 <footer class="footer-institucional">
     <div class="footer-container">

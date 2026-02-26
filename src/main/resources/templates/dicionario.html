@@ -7,86 +7,46 @@
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/dicionario.css}">
+    <link rel="stylesheet" th:href="@{/css/templates.css}">
     <link rel="shortcut icon" th:href="@{/img/favicon.png}" type="image/x-icon">
 </head>
 <body>
-<header class="topbar">
-    <div class="container flex-between">
-        <div class="anim-wrapper delay-1">
-            <img th:src="@{/img/LOGO BRANCA.png}" class="logo" alt="Logo do Projeto Libelle">
-        </div>
-        <nav class="menu anim-wrapper delay-2" aria-label="Navegação principal">
-            <ul>
-                <li><a th:href="@{/}">Início</a></li>
-                <li><a th:href="@{/dicionario}">Dicionário</a></li>
-                <li><a href="@{/acervo}">Acervo</a></li>
-                <li><a href="#">Sobre</a></li>
-            </ul>
-        </nav>
-        <div class="anim-wrapper delay-3">
-            <a class="login-btn" href="javascript:void(0)" onclick="document.getElementById('loginOverlay').classList.add('ativo')">Login</a>
-        </div>
-    </div>
-</header>
+    
+    <!--/* Navbar */-->
+    <div th:replace="fragments/navbar :: navbar"></div>
 
-<label for="idioma">Escolha o idioma:</label>
-<select id="idioma">
-    <option value="pt">Português</option>
-    <option value="de">Alemão</option>
-    <script src="js/idiomapesquisa.js"></script>
-</select>
+    <label for="idioma">Escolha o idioma:</label>
+    <select id="idioma">
+        <option value="pt">Português</option>
+        <option value="de">Alemão</option>
+        <script src="js/idiomapesquisa.js"></script>
+    </select>
 
-<main class="search-hero anim-wrapper">
-    <h1 class="search-title">Dicionário <span class="glow-dourado">Hunsriqueano</span></h1>
-    <form th:action="@{/resultado}" method="get" class="search-container">
-        <input type="text" name="q" class="search-input" placeholder="Ex: Bier, Dorst, Aadler, Fisch...">
-        <button type="submit" class="btn-search-lupa"><span class="lupa-icon"></span></button>
-    </form>
-    <div id="sugestoes"></div>
-    <script src="js/ajax.js"></script>
-</main>
-<footer class="footer-institucional">
-    <div class="footer-container">
-        <div class="footer-col">
-            <img th:src="@{/img/LOGO BRANCA.png}" class="footer-logo" alt="Logo">
-            <p class="footer-texto">Preservando o dialeto hunsriqueano através da tecnologia e união comunitária.</p>
-        </div>
-        <div class="footer-divider"></div>
-        <div class="footer-col">
-            <h4>Navegação</h4>
-            <ul>
-                <li><a th:href="@{/}">Início</a></li>
-                <li><a th:href="@{/dicionario}">Dicionário</a></li>
-                <li><a th:href="@{/acervo}">Acervo</a></li>
-                <li><a href="#">Sobre nós</a></li>
-            </ul>
-        </div>
-        <div class="footer-divider"></div>
-        <div class="footer-col">
-            <h4>Contato</h4>
-            <ul>
-                <li><a href="mailto:contato@libelle.com">contato@libelle.com</a></li>
-                <li><a href="#">Instagram</a></li>
-                <li><a href="#">Facebook</a></li>
-            </ul>
+    <main class="search-hero anim-wrapper">
+        <h1 class="search-title">Dicionário <span class="glow-dourado">Hunsriqueano</span></h1>
+        <form th:action="@{/resultado}" method="get" class="search-container">
+            <input type="text" name="q" class="search-input" placeholder="Ex: Bier, Dorst, Aadler, Fisch...">
+            <button type="submit" class="btn-search-lupa"><span class="lupa-icon"></span></button>
+        </form>
+        <div id="sugestoes"></div>
+        <script src="js/ajax.js"></script>
+    </main>
+
+    <!--/* Footer */-->
+    <div th:replace="fragments/footer :: footer"></div>
+
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-modal">
+            <button class="login-close" onclick="document.getElementById('loginOverlay').classList.remove('ativo')">&times;</button>
+            <img th:src="@{/img/LOGO BRANCA.png}" style="filter: brightness(0) saturate(100%) invert(13%) sepia(85%) saturate(5427%);" alt="Logo">
+            <input type="email" placeholder="E-mail">
+            <input type="password" placeholder="Senha">
+            <button class="btn-login">Entrar</button>
+            <div class="login-opcoes">
+                <a href="#" id="recsenha">Esqueceu a senha? <b>Recuperar</b></a><br><br>
+                <a href="#" id="cadastro">Não tem conta? <b>Cadastre-se</b></a>
+            </div>
         </div>
     </div>
-    <div class="footer-bottom">
-        <p>Projeto Libelle — Dialeto Hunsriqueano © 2025</p>
-    </div>
-</footer>
-<div class="login-overlay" id="loginOverlay">
-    <div class="login-modal">
-        <button class="login-close" onclick="document.getElementById('loginOverlay').classList.remove('ativo')">&times;</button>
-        <img th:src="@{/img/LOGO BRANCA.png}" style="filter: brightness(0) saturate(100%) invert(13%) sepia(85%) saturate(5427%);" alt="Logo">
-        <input type="email" placeholder="E-mail">
-        <input type="password" placeholder="Senha">
-        <button class="btn-login">Entrar</button>
-        <div class="login-opcoes">
-            <a href="#" id="recsenha">Esqueceu a senha? <b>Recuperar</b></a><br><br>
-            <a href="#" id="cadastro">Não tem conta? <b>Cadastre-se</b></a>
-        </div>
-    </div>
-</div>
 </body>
 </html>

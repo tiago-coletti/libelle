@@ -16,11 +16,19 @@
     <div th:replace="fragments/navbar :: navbar"></div>
     
     <main class="result-main">
+    <select id="idioma">
+        <option value="pt">Português</option>
+        <option value="de">Alemão</option>
+    </select>
+
+<script th:src="@{/js/ajax.js}"></script>
+<div id="sugestoes"></div>
         <div class="container">
             <form class="mini-search-box" th:action="@{/resultado}" method="get">
                 <input type="text" name="q" class="mini-input" placeholder="Pesquisar outra palavra...">
                 <button type="submit" class="mini-btn-lupa"><span class="lupa-sm"></span></button>
             </form>
+
             <article class="result-card anim-wrapper">
                 <div class="card-header-flex">
                     <div class="word-header">

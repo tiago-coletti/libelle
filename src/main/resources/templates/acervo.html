@@ -22,32 +22,13 @@
 <body>
     <!--/* Navbar */-->
     <div th:replace="fragments/navbar :: navbar"></div>
+
+    <!--/* loginModal*/-->
+    <div th:replace="fragments/login :: loginModal"></div>
     
     <!--/* footer */-->
     <div th:replace="fragments/footer :: footer"></div>
 
-    <div class="login-overlay" id="loginOverlay">
-        <div class="login-modal">
-            <button class="login-close" onclick="document.getElementById('loginOverlay').classList.remove('ativo')">&times;</button>
-            <img th:src="@{/img/LOGO BRANCA.png}" style="filter: brightness(0) saturate(100%) invert(13%) sepia(85%) saturate(5427%);" alt="Logo">
-            <input type="email" placeholder="E-mail">
-            <input type="password" placeholder="Senha">
-            <button class="btn-login">Entrar</button>
-            <div class="login-opcoes">
-                <a href="#" id="recsenha">Esqueceu a senha? <b>Recuperar</b></a><br><br>
-                <a href="#" id="cadastro">Não tem conta? <b>Cadastre-se</b></a>
-            </div>
-        </div>
-    </div>
-    
-    <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                }
-            });
-        }, { threshold: 0.2 });
-        observer.observe(document.getElementById('sobreContainer'));
-    </script>   
+<!--/* scripts js */-->
+    <script th:src="@{/js/toggleSenha.js}"></script>
 </body>

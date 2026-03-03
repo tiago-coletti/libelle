@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.hunsriqueano.libelle.entity.NivelAcesso;
 import br.com.hunsriqueano.libelle.entity.Usuario;
+import br.com.hunsriqueano.libelle.repository.OrtografiaRepository;
 import br.com.hunsriqueano.libelle.repository.UsuarioRepository;
 
 @Service
@@ -15,10 +16,14 @@ public class UsuarioService {
 
     private final UsuarioRepository repository;
     private final PasswordEncoder passwordEncoder;
+    private final OrtografiaRepository ortografiaRepository;
 
-    public UsuarioService(UsuarioRepository repository, PasswordEncoder passwordEncoder) {
+    public UsuarioService(UsuarioRepository repository,
+                        PasswordEncoder passwordEncoder,
+                        OrtografiaRepository ortografiaRepository) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
+        this.ortografiaRepository = ortografiaRepository;
     }
 
     public List<Usuario> listarTodos() {

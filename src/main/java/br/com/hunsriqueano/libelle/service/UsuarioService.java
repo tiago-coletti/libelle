@@ -1,12 +1,14 @@
 package br.com.hunsriqueano.libelle.service;
 
-import br.com.hunsriqueano.libelle.entity.Usuario;
-import br.com.hunsriqueano.libelle.repository.UsuarioRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import br.com.hunsriqueano.libelle.entity.NivelAcesso;
+import br.com.hunsriqueano.libelle.entity.Usuario;
+import br.com.hunsriqueano.libelle.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
@@ -35,6 +37,7 @@ public class UsuarioService {
         } if (usuario.getSenhaHash() == null || usuario.getSenhaHash().isEmpty()) {
             throw new IllegalArgumentException("A senha é obrigatória.");
         }
+        usuario.setNivelAcesso(NivelAcesso.USUARIO);
 
         String senhaPura = usuario.getSenhaHash();
         usuario.setSenhaHash(passwordEncoder.encode(senhaPura));

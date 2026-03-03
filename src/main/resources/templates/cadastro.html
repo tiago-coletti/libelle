@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cadastro — Projeto Libelle</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" th:href="@{/img/favicon.png}" type="image/x-icon">
+
+    <link rel="stylesheet" th:href="@{/css/acervo.css}">
+    <link rel="stylesheet" th:href="@{/css/templates.css}">
+    <link rel="stylesheet" th:href="@{/css/cadastro.css}">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <!-- ================= CADASTRO ================= -->
+    <section class="cadastro-section">
+
+        <div class="cadastro-container">
+            <h1>Criar Conta</h1>
+            <p class="cadastro-subtitulo">
+                Faça parte da preservação do Hunsrückisch
+            </p>
+
+            <form th:action="@{/usuario/cadastrar}"
+                  th:object="${usuario}"
+                  method="post"
+                  class="cadastro-form">
+
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" th:field="*{nomeCompleto}" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" th:field="*{email}" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" th:field="*{senhaHash}" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Ano de Nascimento</label>
+                    <input type="number" th:field="*{anoNascimento}">
+                </div>
+
+                <div class="form-group">
+                    <label>Localidade</label>
+                    <input type="number" th:field="*{localidade}">
+                </div>
+
+                <div class="form-group">
+                    <label>Preferência Ortográfica</label>
+                    <select th:field="*{preferenciaOrtografia}" required>
+                        <option value="">Selecione...</option>
+                        <option th:each="o : ${ortografias}"
+                                th:value="${o.id}"
+                                th:text="${o.nome}">
+                        </option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-cadastro">
+                    Criar Conta
+                </button>
+
+                <div th:if="${erro}" class="mensagem-erro">
+                    <p th:text="${erro}"></p>
+                </div>
+
+                <div th:if="${param.sucesso}" class="mensagem-sucesso">
+                    Conta criada com sucesso!
+                </div>
+
+            </form>
+        </div>
+
+    </section>
+    <!-- ============================================ -->
+
+    <!-- Login Modal -->
+    <div th:replace="fragments/login :: loginModal"></div>
+
+    <!-- Footer -->
+    <div th:replace="fragments/footer :: footer"></div>
+
+    <!-- Scripts -->
+    <script th:src="@{/js/toggleSenha.js}"></script>
+
+</body>
+</html>

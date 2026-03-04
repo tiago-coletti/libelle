@@ -54,11 +54,11 @@
 
                 <div class="form-group">
                     <label>Preferência Ortográfica</label>
-                    <select th:field="*{preferenciaOrtografia}" required>
+                    <select th:field="*{preferenciaOrtografia.id}" required>
                         <option value="">Selecione...</option>
                         <option th:each="o : ${ortografias}"
                                 th:value="${o.id}"
-                                th:text="${o.nome}">
+                                th:text="${o.nomeSistema}">
                         </option>
                     </select>
                 </div>

@@ -53,7 +53,6 @@ public class UsuarioService {
             throw new IllegalArgumentException("Selecione uma preferência ortográfica.");
         }
 
-        // 🔥 BUSCA A ORTOGRAFIA NO BANCO
         var ortografia = ortografiaRepository
                 .findById(usuario.getPreferenciaOrtografia().getId())
                 .orElseThrow(() -> 

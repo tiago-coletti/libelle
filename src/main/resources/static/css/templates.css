@@ -151,12 +151,12 @@ body {
 .login-btn:hover {
     transform: scale(0.90);
 }
-:root {
-    --vermelho: #D31313;
-    --dourado: #C4A358;
-    --offwhite: #FBFBFB;
-    --preto: #090909;
-    --gradiente-dourado: linear-gradient(90deg, #C4A358 0%, #ac8f4d 100%);
+.toggle-senha {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-100%);
+    cursor: pointer;
 }
 /* 
 ===============
@@ -431,11 +431,14 @@ body {
     width: 100%;
     background: var(--offwhite);
     padding: 15px;
-    margin-bottom: 15px;
     border: 2px solid var(--vermelho);
     border-radius: 8px;
     font-size: 16px;
 }
+.login-modal form > input {
+    margin-bottom: 15px;
+}
+
 .btn-login {
     background: var(--vermelho);
     color: var(--offwhite);
@@ -462,6 +465,39 @@ body {
     background: none;
     border: none;
     cursor: pointer;
+}
+/* =========================
+   CAMPO SENHA
+========================= */
+
+.campo-senha {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.campo-senha input {
+    width: 100%;
+    padding: 15px 55px 15px 15px; /* espaço para o olho */
+    border: 2px solid var(--vermelho);
+    border-radius: 8px;
+    font-size: 16px;
+    background: var(--offwhite);
+}
+
+.btn-toggle-senha {
+    position: absolute;
+    right: 15px;
+    top: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0;
 }
 @media (max-width: 900px) {
     .footer-container { grid-template-columns: 1fr; text-align: center; }

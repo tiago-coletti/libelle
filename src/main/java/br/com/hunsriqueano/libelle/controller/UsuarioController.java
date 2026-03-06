@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.hunsriqueano.libelle.entity.Usuario;
+import br.com.hunsriqueano.libelle.repository.OrtografiaRepository;
 import br.com.hunsriqueano.libelle.service.UsuarioService;
 
 @Controller
@@ -14,19 +15,26 @@ import br.com.hunsriqueano.libelle.service.UsuarioService;
 public class UsuarioController {
 
     private final UsuarioService service;
+    private final OrtografiaRepository ortografiaRepository;
 
-    public UsuarioController(UsuarioService service) {
+    public UsuarioController(UsuarioService service, OrtografiaRepository ortografiaRepository) {
         this.service = service;
+        this.ortografiaRepository = ortografiaRepository;
     }
 
     @PostMapping("/cadastrar")
-    public String cadastrar(@ModelAttribute Usuario usuario,
-                            Model model) {
+    public String cadastrar(@ModelAttribute Usuario usuario, Model model) {
+
         try {
             service.cadastrar(usuario);
             return "redirect:/cadastro?sucesso";
+
         } catch (IllegalArgumentException e) {
+
             model.addAttribute("erro", e.getMessage());
+            model.addAttribute("usuario", usuario);
+            model.addAttribute("ortografias", ortografiaRepository.findAll());
+
             return "cadastro";
         }
     }

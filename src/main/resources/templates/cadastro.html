@@ -16,7 +16,7 @@
 <body>
 
     <!-- Navbar -->
-    <div th:replace="fragments/navbar :: navbar"></div>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
 
     <!-- ================= CADASTRO ================= -->
     <section class="cadastro-section">
@@ -48,11 +48,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Ano de Nascimento</label>
-                    <input type="number" th:field="*{anoNascimento}">
-                </div>
-
-                <div class="form-group">
                     <label>Preferência Ortográfica</label>
                     <select th:field="*{preferenciaOrtografia.id}" required>
                         <option value="">Selecione...</option>
@@ -62,6 +57,19 @@
                         </option>
                     </select>
                 </div>
+
+                <input type="text"
+                    id="cidade"
+                    th:field="*{localidade.cidade}"
+                    placeholder="Cidade">
+
+                <input type="text"
+                    id="estado"
+                    th:field="*{localidade.estado}"
+                    placeholder="Estado">
+
+                    <input type="hidden" id="latitude" th:field="*{localidade.latitude}">
+                    <input type="hidden" id="longitude" th:field="*{localidade.longitude}">
 
                 <button type="submit" class="btn-cadastro">
                     Criar Conta
@@ -89,6 +97,40 @@
 
     <!-- Scripts -->
     <script th:src="@{/js/toggleSenha.js}"></script>
+    <!-- Script localidade.cidade -->
+    <script> 
+        function validarLocalizacao() {
+
+        let cidade = document.getElementById("cidade").value;
+        let estado = document.getElementById("estado").value;
+
+        if(!cidade || !estado){
+            alert("Informe cidade e estado.");
+            return false;
+        }
+
+        let url = `https://nominatim.openstreetmap.org/search?city=${cidade}&state=${estado}&country=Brazil&format=json`;
+
+        fetch(url)
+        .then(res => res.json())
+        .then(data => {
+
+            if(data.length > 0){
+
+                document.getElementById("latitude").value = data[0].lat;
+                document.getElementById("longitude").value = data[0].lon;
+
+                document.querySelector(".cadastro-form").submit();
+
+            }else{
+                alert("Não foi possível encontrar essa cidade.");
+            }
+
+        });
+
+        return false;
+    }
+    </script>
 
 </body>
 </html>

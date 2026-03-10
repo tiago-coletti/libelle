@@ -1,5 +1,7 @@
 package br.com.hunsriqueano.libelle.controller;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,15 +21,20 @@ public class VerificarEmail {
     @GetMapping("/verificar-email")
     public String verificarEmail(@RequestParam String token) {
 
-        Usuario usuario = repository.findByTokenVerificacao(token);
+        Optional<Usuario> usuarioOpt = repository.findByTokenVerificacao(token);
 
-        if (usuario != null) {
+        if (usuarioOpt.isPresent()) {
+
+            Usuario usuario = usuarioOpt.get();
+
             usuario.setEmailVerificado(true);
             usuario.setTokenVerificacao(null);
 
             repository.save(usuario);
+
+            return "email-confirmado";
         }
 
-        return "email-confirmado";
+        return "token-invalido";
     }
 }

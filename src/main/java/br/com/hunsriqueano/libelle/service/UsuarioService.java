@@ -18,13 +18,17 @@ public class UsuarioService {
     private final UsuarioRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final OrtografiaRepository ortografiaRepository;
+    private final EmailService emailService;
 
     public UsuarioService(UsuarioRepository repository,
                         PasswordEncoder passwordEncoder,
-                        OrtografiaRepository ortografiaRepository) {
+                        OrtografiaRepository ortografiaRepository,
+                        EmailService emailService) {
+
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
         this.ortografiaRepository = ortografiaRepository;
+        this.emailService = emailService;
     }
 
     public List<Usuario> listarTodos() {
@@ -67,13 +71,18 @@ public class UsuarioService {
         String senhaPura = usuario.getSenhaHash();
         usuario.setSenhaHash(passwordEncoder.encode(senhaPura));
 
-        // 🔹 GERAR TOKEN
+        // GERAR TOKEN
         String token = UUID.randomUUID().toString();
 
         usuario.setTokenVerificacao(token);
         usuario.setEmailVerificado(false);
 
-        return repository.save(usuario);
+        Usuario usuarioSalvo = repository.save(usuario);
+
+        // enviar email
+        emailService.enviarEmailVerificacao(usuarioSalvo.getEmail(), token);
+
+        return usuarioSalvo;
     }
 
     public Usuario atualizar(Integer id, Usuario usuarioDadosNovos) {

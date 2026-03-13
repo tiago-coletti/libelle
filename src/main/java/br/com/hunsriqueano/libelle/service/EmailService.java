@@ -13,7 +13,7 @@ public class EmailService {
 
     public void enviarEmailVerificacao(String email, String token) {
 
-        String link = "http://paraverificar/verificar-email?token=" + token;
+        String link = "http://192.168.0.139/verificar-email?token=" + token;
 
         SimpleMailMessage mensagem = new SimpleMailMessage();
         mensagem.setTo(email);

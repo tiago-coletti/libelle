@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Projeto Libelle — Hunsrückisch</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="shortcut icon" th:href="@{/img/favicon.png}" type="image/x-icon">
+
+<link rel="stylesheet" th:href="@{/css/verificar_email.css}">
+<link rel="stylesheet" th:href="@{/css/templates.css}">
+
+<style>
+
+body{
+    font-family: 'Sora', sans-serif;
+    margin:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    text-align:center;
+}
+
+/* logo */
+.logo{
+    width:180px;
+}
+
+/* caixa central */
+#ola{
+    margin-top:40px;
+    max-width:500px;
+}
+
+/* efeito bandeira */
+.bandeira-hunsriqueana{
+    box-shadow:0 4px 14px rgba(0,0,0,0.12);
+    transition:0.3s;
+}
+
+.bandeira-hunsriqueana:hover{
+    transform:scale(1.05);
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <div>
+        <img th:src="@{/img/LOGO BRANCA.png}"
+             class="logo"
+             alt="Logo do Projeto Libelle">
+    </div>
+</header>
+
+<div id="ola">
+
+<h2>Verifique seu e-mail 📧</h2>
+
+<p>
+Enviamos um link de confirmação para seu e-mail.
+</p>
+
+<p>
+Após clicar no link, esta página será atualizada automaticamente.
+</p>
+
+</div>
+
+<script th:src="@{/js/ears.js}"></script>
+
+</body>
+</html>

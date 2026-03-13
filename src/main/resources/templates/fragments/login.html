@@ -1,0 +1,60 @@
+<div class="login-overlay" id="loginOverlay" th:fragment="loginModal">
+
+    <div class="login-modal">
+
+        <button class="login-close"
+                onclick="document.getElementById('loginOverlay').classList.remove('ativo')">
+            &times;
+        </button>
+
+        <img th:src="@{/img/LOGO BRANCA.png}"
+             style="filter: brightness(0) saturate(100%) invert(13%) sepia(85%) saturate(5427%);"
+             alt="Logo">
+
+        <form th:action="@{/login}" method="post">
+
+            <input type="text"
+                   name="username"
+                   placeholder="E-mail"
+                   required>
+
+            <!-- CAMPO SENHA COMPLETO -->
+            <div class="campo-senha">
+
+                <input type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Senha"
+                    required>
+
+                <button type="button"
+                        class="btn-toggle-senha"
+                        onclick="toggleSenha(this)">
+                    👁
+                </button>
+
+            </div>
+            <!-- FIM CAMPO SENHA -->
+
+            <button type="submit" class="btn-login" style="margin-top:15px;">
+                Entrar
+            </button>
+
+            <div th:if="${param.error}" style="color:red; margin-top:10px;">
+                Usuário ou senha inválidos.
+            </div>
+
+            <div th:if="${param.logout}" style="color:green; margin-top:10px;">
+                Logout realizado com sucesso.
+            </div>
+
+        </form>
+
+        <div class="login-opcoes" style="margin-top:15px;">
+            <a href="#" id="recsenha">Esqueceu a senha? <b>Recuperar</b></a>
+            <br><br>
+            <a th:href="@{/cadastro}" id="cadastro">Não tem conta? <b>Cadastre-se</b></a>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,5 @@
+ALTER TABLE usuario 
+ADD COLUMN email_verificado BOOLEAN NOT NULL DEFAULT FALSE;
+
+ALTER TABLE usuario 
+ADD COLUMN token_verificacao VARCHAR(255);

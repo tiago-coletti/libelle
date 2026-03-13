@@ -16,11 +16,19 @@
     <div th:replace="fragments/navbar :: navbar"></div>
     
     <main class="result-main">
+    <select id="idioma">
+        <option value="pt">Português</option>
+        <option value="de">Alemão</option>
+    </select>
+
+<script th:src="@{/js/ajax.js}"></script>
+<div id="sugestoes"></div>
         <div class="container">
             <form class="mini-search-box" th:action="@{/resultado}" method="get">
                 <input type="text" name="q" class="mini-input" placeholder="Pesquisar outra palavra...">
                 <button type="submit" class="mini-btn-lupa"><span class="lupa-sm"></span></button>
             </form>
+
             <article class="result-card anim-wrapper">
                 <div class="card-header-flex">
                     <div class="word-header">
@@ -66,23 +74,14 @@
             </article>
         </div>
     </main>
+    <!--/* loginModal*/-->
+    <div th:replace="fragments/login :: loginModal"></div>
     
     <!--/* footer */-->
     <div th:replace="fragments/footer :: footer"></div>
     
-    <div class="login-overlay" id="loginOverlay">
-        <div class="login-modal">
-            <button class="login-close" onclick="document.getElementById('loginOverlay').classList.remove('ativo')">&times;</button>
-            <img th:src="@{/img/LOGO BRANCA.png}" style="filter: brightness(0) saturate(100%) invert(13%) sepia(85%) saturate(5427%);" alt="Logo">
-            <input type="email" placeholder="E-mail">
-            <input type="password" placeholder="Senha">
-            <button class="btn-login">Entrar</button>
-            <div class="login-opcoes">
-                <a href="#" id="recsenha">Esqueceu a senha? <b>Recuperar</b></a><br><br>
-                <a href="#" id="cadastro">Não tem conta? <b>Cadastre-se</b></a>
-            </div>
-        </div>
-    </div>
+    <!--/* scripts js */-->
+    <script th:src="@{/js/toggleSenha.js}"></script>
     <script th:inline="javascript">
         const orthoData = [[${mapaOrtografia}]];
         document.getElementById('orthoSelect').addEventListener('change', function(e) {

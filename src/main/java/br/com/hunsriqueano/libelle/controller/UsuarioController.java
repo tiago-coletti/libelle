@@ -27,7 +27,7 @@ public class UsuarioController {
 
         try {
             service.cadastrar(usuario);
-            return "redirect:/cadastro?sucesso";
+            return "redirect:/verificar_email";
 
         } catch (IllegalArgumentException e) {
 

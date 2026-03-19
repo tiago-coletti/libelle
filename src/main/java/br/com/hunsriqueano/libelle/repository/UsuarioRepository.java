@@ -17,7 +17,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     boolean existsByEmail(String email);
 
-    Optional<Usuario> findByTokenVerificacao(String tokenVerificacao);
+    Optional<Usuario> findByCodigoVerificacao(String codigo);
 
     @Modifying
     @Transactional

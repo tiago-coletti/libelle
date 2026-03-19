@@ -4,45 +4,92 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>Projeto Libelle — Hunsrückisch</title>
+<title>Verificação</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="shortcut icon" th:href="@{/img/favicon.png}" type="image/x-icon">
-
-<link rel="stylesheet" th:href="@{/css/verificar_email.css}">
 <link rel="stylesheet" th:href="@{/css/templates.css}">
 
 <style>
 
+/* BODY */
 body{
     font-family: 'Sora', sans-serif;
     margin:0;
+    padding-top:120px;
     display:flex;
     flex-direction:column;
     align-items:center;
-    justify-content:center;
-    min-height:100vh;
     text-align:center;
+    background: var(--offwhite);
 }
 
-/* logo */
+/* HEADER SIMPLES */
+.topbar{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
 .logo{
-    width:180px;
+    height:50px;
 }
 
-/* caixa central */
-#ola{
-    margin-top:40px;
-    max-width:500px;
-}
-
-/* efeito bandeira */
-.bandeira-hunsriqueana{
+/* CARD */
+.card{
+    margin-top:60px;
+    background:#fff;
+    padding:40px;
+    border-radius:16px;
     box-shadow:0 4px 14px rgba(0,0,0,0.12);
-    transition:0.3s;
+    max-width:500px;
+    width:90%;
 }
 
-.bandeira-hunsriqueana:hover{
+/* TÍTULO */
+.card h2{
+    font-family:"Clab";
+    color:var(--vermelho);
+    margin-bottom:10px;
+}
+
+/* INPUTS DO CÓDIGO */
+.codigo-container{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin:30px 0;
+}
+
+.codigo-container input{
+    width:50px;
+    height:60px;
+    text-align:center;
+    font-size:22px;
+    border:2px solid var(--vermelho);
+    border-radius:10px;
+    outline:none;
+}
+
+.codigo-container input:focus{
+    border-color:var(--dourado);
+}
+
+/* BOTÃO */
+.btn{
+    background:var(--gradiente-dourado);
+    border:none;
+    padding:15px;
+    width:100%;
+    border-radius:10px;
+    font-family:"Clab";
+    font-weight:700;
+    color:#fff;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn:hover{
     transform:scale(1.05);
 }
 
@@ -51,29 +98,161 @@ body{
 
 <body>
 
+<!-- HEADER SÓ LOGO -->
 <header class="topbar">
-    <div>
-        <img th:src="@{/img/LOGO BRANCA.png}"
-             class="logo"
-             alt="Logo do Projeto Libelle">
-    </div>
+    <img th:src="@{/img/LOGO BRANCA.png}" class="logo">
 </header>
 
-<div id="ola">
+<!-- CARD -->
+<div class="card">
 
-<h2>Verifique seu e-mail 📧</h2>
+    <h2>Digite o código</h2>
 
-<p>
-Enviamos um link de confirmação para seu e-mail.
-</p>
+    <p>Enviamos um código para seu e-mail</p>
 
-<p>
-Após clicar no link, esta página será atualizada automaticamente.
-</p>
+    <!-- INPUTS -->
+    <div class="codigo-container">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+    </div>
+
+    <button class="btn">Verificar</button>
 
 </div>
 
-<script th:src="@{/js/ears.js}"></script>
+<script>
+
+const inputs = document.querySelectorAll(".codigo-container input");
+const botao = document.querySelector(".btn");
+
+/* FOCO NO PRIMEIRO */
+inputs[0].focus();
+
+/* CURSOR SEMPRE NO FINAL */
+function cursorNoFinal(input) {
+    const len = input.value.length;
+    input.setSelectionRange(len, len);
+}
+
+/* CONTROLE DOS INPUTS */
+inputs.forEach((input, index) => {
+
+    input.addEventListener("input", (e) => {
+
+        let valor = e.target.value.replace(/\D/g, "");
+
+        if (valor.length > 1) {
+            valor = valor.slice(-1);
+        }
+
+        input.value = valor;
+        cursorNoFinal(input);
+
+        if (valor && index < inputs.length - 1) {
+            inputs[index + 1].focus();
+        }
+
+        verificarAutoEnvio();
+    });
+
+    input.addEventListener("keydown", (e) => {
+
+        if (e.key === "Backspace") {
+            if (input.value === "" && index > 0) {
+                inputs[index - 1].focus();
+            } else {
+                input.value = "";
+                cursorNoFinal(input);
+            }
+            e.preventDefault();
+        }
+
+        if (e.key === "ArrowRight" && index < inputs.length - 1) {
+            inputs[index + 1].focus();
+            e.preventDefault();
+        }
+
+        if (e.key === "ArrowLeft" && index > 0) {
+            inputs[index - 1].focus();
+            e.preventDefault();
+        }
+    });
+
+    /* CURSOR NA FRENTE AO CLICAR */
+    input.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+        input.focus();
+        cursorNoFinal(input);
+    });
+
+    /* CURSOR NA FRENTE AO FOCAR */
+    input.addEventListener("focus", () => {
+        setTimeout(() => cursorNoFinal(input), 0);
+    });
+
+});
+
+/* COLAR CÓDIGO */
+inputs[0].addEventListener("paste", (e) => {
+    e.preventDefault();
+
+    const texto = e.clipboardData.getData("text").replace(/\D/g, "");
+
+    inputs.forEach((input, i) => {
+        input.value = texto[i] || "";
+    });
+
+    verificarAutoEnvio();
+});
+
+/* JUNTA CÓDIGO */
+function pegarCodigo() {
+    let codigo = "";
+    inputs.forEach(i => codigo += i.value);
+    return codigo;
+}
+
+/* AUTO ENVIO */
+function verificarAutoEnvio() {
+    const codigo = pegarCodigo();
+    if (codigo.length === inputs.length) {
+        enviarCodigo(codigo);
+    }
+}
+
+/* ENVIO */
+async function enviarCodigo(codigo) {
+
+    console.log("CODIGO ENVIADO:", codigo);
+
+    const res = await fetch("/verificar-codigo", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ codigo })
+    });
+
+    const data = await res.json();
+
+    if (data.ok) {
+        alert("Email verificado com sucesso!");
+        window.location.href = "/login";
+    } else {
+        alert(data.erro || "Código inválido");
+    }
+}
+
+/* BOTÃO */
+botao.addEventListener("click", () => {
+    enviarCodigo(pegarCodigo());
+});
+
+</script>
 
 </body>
 </html>

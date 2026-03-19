@@ -11,18 +11,30 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public void enviarEmailVerificacao(String email, String token) {
-
-        String link = "http://${IP}/verificar-email?token=" + token;
+    public void enviarEmailVerificacao(String email, String codigo) {
 
         SimpleMailMessage mensagem = new SimpleMailMessage();
         mensagem.setTo(email);
-        mensagem.setSubject("Verificação de conta - Libelle");
+        mensagem.setSubject("🔐 Código de verificação - Libelle");
+
         mensagem.setText(
-                "Bem-vindo ao Libelle!\n\n" +
-                "Clique no link abaixo para confirmar seu e-mail:\n\n" +
-                link + "\n\n" +
-                "Se você não criou esta conta, ignore este e-mail."
+            "Olá!\n\n" +
+
+            "Seja bem-vindo ao Libelle 📚\n\n" +
+
+            "Use o código abaixo para verificar seu e-mail:\n\n" +
+
+            "━━━━━━━━━━━━━━━━━━━\n" +
+            "   CÓDIGO: " + codigo + "\n" +
+            "━━━━━━━━━━━━━━━━━━━\n\n" +
+
+            "Digite esse código na tela de verificação.\n\n" +
+
+            "⚠️ Este código expira em alguns minutos.\n\n" +
+
+            "Se você não criou uma conta, ignore este e-mail.\n\n" +
+
+            "— Equipe Libelle"
         );
 
         mailSender.send(mensagem);

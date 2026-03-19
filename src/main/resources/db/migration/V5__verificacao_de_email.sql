@@ -2,4 +2,7 @@ ALTER TABLE usuario
 ADD COLUMN email_verificado BOOLEAN NOT NULL DEFAULT FALSE;
 
 ALTER TABLE usuario 
-ADD COLUMN token_verificacao VARCHAR(255);
+ADD COLUMN codigo_verificacao  VARCHAR(10);
+
+ALTER Table usuario
+ADD COLUMN codigo_expiracao DATETIME;

@@ -52,8 +52,13 @@ public class Usuario {
     @Column(name = "email_verificado", nullable = false)
     private Boolean emailVerificado = false;
 
-    @Column(name = "token_verificacao")
-    private String tokenVerificacao;
+    @Column(name = "codigo_verificacao")
+    private String codigoVerificacao;
+
+    @Column(name = "codigo_expiracao")
+    private LocalDateTime codigoExpiracao;
+
+    // ================= GETTERS E SETTERS =================
 
     public Integer getId() {
         return id;
@@ -126,19 +131,28 @@ public class Usuario {
     public void setDataCadastro(LocalDateTime dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
-    public Boolean getEmailVerificado() {
-    return emailVerificado;
+
+    public Boolean isEmailVerificado() {
+        return emailVerificado;
     }
 
     public void setEmailVerificado(Boolean emailVerificado) {
         this.emailVerificado = emailVerificado;
     }
 
-    public String getTokenVerificacao() {
-        return tokenVerificacao;
+    public String getCodigoVerificacao() {
+        return codigoVerificacao;
     }
 
-    public void setTokenVerificacao(String tokenVerificacao) {
-        this.tokenVerificacao = tokenVerificacao;
+    public void setCodigoVerificacao(String codigoVerificacao) {
+        this.codigoVerificacao = codigoVerificacao;
+    }
+
+    public LocalDateTime getCodigoExpiracao() {
+        return codigoExpiracao;
+    }
+
+    public void setCodigoExpiracao(LocalDateTime codigoExpiracao) {
+        this.codigoExpiracao = codigoExpiracao;
     }
 }

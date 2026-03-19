@@ -2,7 +2,6 @@ package br.com.hunsriqueano.libelle.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -39,6 +38,8 @@ public class UsuarioService {
         return repository.findById(id);
     }
 
+    
+    //Cadastro Usuario
     public Usuario cadastrar(Usuario usuario) {
 
         if (usuario.getId() != null) {
@@ -71,16 +72,16 @@ public class UsuarioService {
         String senhaPura = usuario.getSenhaHash();
         usuario.setSenhaHash(passwordEncoder.encode(senhaPura));
 
-        // GERAR TOKEN
-        String token = UUID.randomUUID().toString();
+        // gerar codigo
+        String codigo = String.valueOf((int)(Math.random() * 900000) + 100000);
 
-        usuario.setTokenVerificacao(token);
+        usuario.setCodigoVerificacao(codigo);
         usuario.setEmailVerificado(false);
 
         Usuario usuarioSalvo = repository.save(usuario);
 
         // enviar email
-        emailService.enviarEmailVerificacao(usuarioSalvo.getEmail(), token);
+        emailService.enviarEmailVerificacao(usuarioSalvo.getEmail(), codigo);
 
         return usuarioSalvo;
     }

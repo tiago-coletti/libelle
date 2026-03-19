@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Projeto Libelle — Hunsrückisch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" th:href="@{/img/favicon.png}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/acervo.css}">
+    <link rel="stylesheet" th:href="@{/css/templates.css}">
+    <style>
+        .bandeira-hunsriqueana {
+            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+            transition: 0.3s all;
+        }
+        .bandeira-hunsriqueana:hover {
+            transform: scale(1.05);
+            transition: transform .3s;
+        }
+    </style>
+</head>
+<body>
+    <!--/* Navbar */-->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <!--/* loginModal*/-->
+    <div th:replace="fragments/login :: loginModal"></div>
+    
+    <!--/* footer */-->
+    <div th:replace="fragments/footer :: footer"></div>
+
+<!--/* scripts js */-->
+    <script th:src="@{/js/toggleSenha.js}"></script>
+</body>

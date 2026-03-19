@@ -1,22 +1,33 @@
 package br.com.hunsriqueano.libelle.service;
 
-import br.com.hunsriqueano.libelle.entity.Usuario;
-import br.com.hunsriqueano.libelle.repository.UsuarioRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import br.com.hunsriqueano.libelle.entity.NivelAcesso;
+import br.com.hunsriqueano.libelle.entity.Usuario;
+import br.com.hunsriqueano.libelle.repository.OrtografiaRepository;
+import br.com.hunsriqueano.libelle.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
 
     private final UsuarioRepository repository;
     private final PasswordEncoder passwordEncoder;
+    private final OrtografiaRepository ortografiaRepository;
+    private final EmailService emailService;
 
-    public UsuarioService(UsuarioRepository repository, PasswordEncoder passwordEncoder) {
+    public UsuarioService(UsuarioRepository repository,
+                        PasswordEncoder passwordEncoder,
+                        OrtografiaRepository ortografiaRepository,
+                        EmailService emailService) {
+
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
+        this.ortografiaRepository = ortografiaRepository;
+        this.emailService = emailService;
     }
 
     public List<Usuario> listarTodos() {
@@ -27,19 +38,52 @@ public class UsuarioService {
         return repository.findById(id);
     }
 
+    
+    //Cadastro Usuario
     public Usuario cadastrar(Usuario usuario) {
+
         if (usuario.getId() != null) {
             throw new IllegalArgumentException("Para cadastrar, o ID deve ser nulo.");
-        } if (repository.existsByEmail(usuario.getEmail())) {
+        }
+
+        if (repository.existsByEmail(usuario.getEmail())) {
             throw new IllegalArgumentException("Já existe um usuário com este e-mail.");
-        } if (usuario.getSenhaHash() == null || usuario.getSenhaHash().isEmpty()) {
+        }
+
+        if (usuario.getSenhaHash() == null || usuario.getSenhaHash().isEmpty()) {
             throw new IllegalArgumentException("A senha é obrigatória.");
         }
+
+        if (usuario.getPreferenciaOrtografia() == null 
+            || usuario.getPreferenciaOrtografia().getId() == null) {
+            throw new IllegalArgumentException("Selecione uma preferência ortográfica.");
+        }
+
+        var ortografia = ortografiaRepository
+                .findById(usuario.getPreferenciaOrtografia().getId())
+                .orElseThrow(() -> 
+                    new IllegalArgumentException("Ortografia inválida.")
+                );
+
+        usuario.setPreferenciaOrtografia(ortografia);
+
+        usuario.setNivelAcesso(NivelAcesso.USUARIO);
 
         String senhaPura = usuario.getSenhaHash();
         usuario.setSenhaHash(passwordEncoder.encode(senhaPura));
 
-        return repository.save(usuario);
+        // gerar codigo
+        String codigo = String.valueOf((int)(Math.random() * 900000) + 100000);
+
+        usuario.setCodigoVerificacao(codigo);
+        usuario.setEmailVerificado(false);
+
+        Usuario usuarioSalvo = repository.save(usuario);
+
+        // enviar email
+        emailService.enviarEmailVerificacao(usuarioSalvo.getEmail(), codigo);
+
+        return usuarioSalvo;
     }
 
     public Usuario atualizar(Integer id, Usuario usuarioDadosNovos) {

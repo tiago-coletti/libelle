@@ -18,4 +18,7 @@ public interface VariacaoOrtograficaRepository extends JpaRepository<VariacaoOrt
     @Query("SELECT v FROM VariacaoOrtografica v JOIN FETCH v.ortografia WHERE v.verbete.id = :verbeteId")
     List<VariacaoOrtografica> findAllByVerbeteId(@Param("verbeteId") Integer verbeteId);
 
+    // Busca por prefixo (autocomplete) ignorando maiúsculas/minúsculas
+    List<VariacaoOrtografica> findByGrafiaAlternativaStartingWithIgnoreCase(String prefix);
+
 }

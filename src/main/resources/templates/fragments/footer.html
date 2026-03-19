@@ -1,0 +1,39 @@
+<footer th:fragment="footer" class="footer-institucional">
+    <div class="footer-container">
+        <div class="footer-col">
+            <img th:src="@{/img/LOGO BRANCA.png}" 
+                 class="footer-logo" 
+                 alt="Logo">
+            <p class="footer-texto">
+                Preservando o dialeto hunsriqueano através da tecnologia e união comunitária.
+            </p>
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <div class="footer-col">
+            <h4>Navegação</h4>
+            <ul>
+                <li><a th:href="@{/}">Início</a></li>
+                <li><a th:href="@{/dicionario}">Dicionário</a></li>
+                <li><a th:href="@{/acervo}">Acervo</a></li>
+                <li><a th:href="@{/sobre}">Sobre nós</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <div class="footer-col">
+            <h4>Contato</h4>
+            <ul>
+                <li><a href="mailto:contato@libelle.com">contato@libelle.com</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Facebook</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>Projeto Libelle — Dialeto Hunsriqueano © 2025</p>
+    </div>
+</footer>

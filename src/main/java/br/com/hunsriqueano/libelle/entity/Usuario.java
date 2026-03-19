@@ -1,7 +1,18 @@
 package br.com.hunsriqueano.libelle.entity;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "usuario")
@@ -24,7 +35,7 @@ public class Usuario {
     @Column(name = "nivel_acesso", nullable = false)
     private NivelAcesso nivelAcesso = NivelAcesso.USUARIO;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "localidade_id")
     private Localidade localidade;
 
@@ -37,6 +48,17 @@ public class Usuario {
 
     @Column(name = "data_cadastro", insertable = false, updatable = false)
     private LocalDateTime dataCadastro;
+
+    @Column(name = "email_verificado", nullable = false)
+    private Boolean emailVerificado = false;
+
+    @Column(name = "codigo_verificacao")
+    private String codigoVerificacao;
+
+    @Column(name = "codigo_expiracao")
+    private LocalDateTime codigoExpiracao;
+
+    // ================= GETTERS E SETTERS =================
 
     public Integer getId() {
         return id;
@@ -108,5 +130,29 @@ public class Usuario {
 
     public void setDataCadastro(LocalDateTime dataCadastro) {
         this.dataCadastro = dataCadastro;
+    }
+
+    public Boolean isEmailVerificado() {
+        return emailVerificado;
+    }
+
+    public void setEmailVerificado(Boolean emailVerificado) {
+        this.emailVerificado = emailVerificado;
+    }
+
+    public String getCodigoVerificacao() {
+        return codigoVerificacao;
+    }
+
+    public void setCodigoVerificacao(String codigoVerificacao) {
+        this.codigoVerificacao = codigoVerificacao;
+    }
+
+    public LocalDateTime getCodigoExpiracao() {
+        return codigoExpiracao;
+    }
+
+    public void setCodigoExpiracao(LocalDateTime codigoExpiracao) {
+        this.codigoExpiracao = codigoExpiracao;
     }
 }

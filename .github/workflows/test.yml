@@ -18,6 +18,9 @@ jobs:
           distribution: temurin
           java-version: 21
 
+      - name: Dar permissão no mvnw
+        run: chmod +x mvnw
+
       - name: Build
         run: ./mvnw clean package -DskipTests
 

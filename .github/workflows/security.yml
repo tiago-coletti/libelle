@@ -11,7 +11,7 @@ jobs:
 
       - name: Scan for secrets
         run: |
-          if grep -r "spring.mail.password" .; then
+          if grep -rEi "password=.*[^}]$|senha=.*[^}]$|token=.*[^}]$|secret=.*[^}]$" .; then
             echo "❌ senha encontrada"
             exit 1
           fi

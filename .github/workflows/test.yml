@@ -26,8 +26,23 @@ jobs:
 
       - name: Run App
         run: |
-          nohup java -jar target/*.jar &
-          sleep 15
+          nohup java -jar target/*.jar > app.log 2>&1 &
+          echo $! > app.pid
+
+      - name: Aguardar app subir
+        run: |
+          echo "Aguardando app iniciar..."
+          for i in $(seq 1 24); do
+            if curl -s http://localhost:8080 > /dev/null 2>&1; then
+              echo "App respondendo após $((i * 5))s"
+              exit 0
+            fi
+            echo "Tentativa $i/24 - aguardando 5s..."
+            sleep 5
+          done
+          echo "App não subiu em 120s. Log:"
+          cat app.log
+          exit 1
 
       - name: Test Endpoint
         run: |

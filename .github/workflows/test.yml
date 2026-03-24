@@ -9,6 +9,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: libelle
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     steps:
       - uses: actions/checkout@v3
 
@@ -24,16 +38,13 @@ jobs:
       - name: Build
         run: ./mvnw clean package -DskipTests
 
-      - name: Verificar jar gerado
-        run: |
-          echo "Jars encontrados:"
-          ls -lh target/*.jar || echo "Nenhum jar encontrado!"
-
       - name: Run App
+        env:
+          SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/libelle
+          SPRING_DATASOURCE_USERNAME: root
+          SPRING_DATASOURCE_PASSWORD: root
         run: |
-          JAR=$(ls target/*.jar | grep -v original | head -n 1)
-          echo "Iniciando: $JAR"
-          nohup java -jar "$JAR" > app.log 2>&1 &
+          ./mvnw spring-boot:run > app.log 2>&1 &
           echo $! > app.pid
 
       - name: Aguardar app subir

@@ -1,0 +1,17 @@
+name: Secret Scan
+
+on: [push]
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Scan for secrets
+        run: |
+          if grep -r "spring.mail.password" .; then
+            echo "❌ senha encontrada"
+            exit 1
+          fi

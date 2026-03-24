@@ -24,9 +24,16 @@ jobs:
       - name: Build
         run: ./mvnw clean package -DskipTests
 
+      - name: Verificar jar gerado
+        run: |
+          echo "Jars encontrados:"
+          ls -lh target/*.jar || echo "Nenhum jar encontrado!"
+
       - name: Run App
         run: |
-          nohup java -jar target/*.jar > app.log 2>&1 &
+          JAR=$(ls target/*.jar | grep -v original | head -n 1)
+          echo "Iniciando: $JAR"
+          nohup java -jar "$JAR" > app.log 2>&1 &
           echo $! > app.pid
 
       - name: Aguardar app subir

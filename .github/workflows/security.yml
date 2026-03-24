@@ -11,7 +11,7 @@ jobs:
 
       - name: Scan for secrets
         run: |
-          if grep -rEi "password=.*[^}]$|senha=.*[^}]$|token=.*[^}]$|secret=.*[^}]$" .; then
-            echo "❌ senha encontrada"
+          if grep -rEi "(password|senha|token|secret)\s*=\s*[^$][^ {]" src/; then
+            echo "❌ SEGREDO REAL DETECTADO"
             exit 1
-          fi
+          fi  

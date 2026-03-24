@@ -29,6 +29,12 @@ jobs:
           nohup java -jar target/*.jar &
           sleep 15
 
+          - name: Rodar aplicação
+        run: |
+          chmod +x mvnw
+          ./mvnw spring-boot:run &
+          sleep 120
+
       - name: Test Endpoint
         run: |
           curl --fail http://localhost:8080 || exit 1
